@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>Bootstrap 101 Template</title>
+  </head>
+  <body>  
+    <div>
+        <h1>Todos</h1>
+        <form action="{% url 'insert_todo_item' %}" method="post" autocomplete="off" >
+          {% csrf_token %}
+          <span>
+            <input type="text"name="title">
+          </span>
+          <button type="submit">+</button>
+        </form>
+        <div>
+          {% for task in tasks %}
+          <div>
+            {{ task.title }} {{ task.id }}
+            <a href="{% url 'delete_todo_item' task.id %}">{% csrf_token %}X</a>
+          </div>
+          {% empty %}
+            <h1>list empty</h1>
+          {% endfor %}
+        </div>
+    </div>
+ </body>
+</html>
